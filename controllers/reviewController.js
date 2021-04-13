@@ -23,7 +23,7 @@ const postReview = async (req, res) => {
       Title: req.body.Title,
       Content: req.body.Content,
     });
-    res.send(`review posted: ${post.title} created with id: ${post._id}`);
+    res.send(`review posted: ${post.Title} created with id: ${post._id}`);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
