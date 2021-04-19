@@ -8,12 +8,12 @@ const options = {
   cert: sslcert,
 };
 const httpsRedirect = (req, res) => {
-  res.writeHead(301, { Location: "http://localhost:8000" + req.url });
+  res.writeHead(301, { Location: "http://localhost:3000" + req.url });
   //res.writeHead(301, { Location: "https://localhost:8000" + req.url });
   res.end();
 };
 const localhost = (app, httpsPort, httpPort) => {
-  http.createServer(options, app).listen(httpsPort);
+  http.createServer(options, app).listen(httpPort);
   //https.createServer(options, app).listen(httpsPort);
   //http.createServer(httpsRedirect).listen(httpPort);
 };
