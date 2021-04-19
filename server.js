@@ -6,6 +6,10 @@ const db = require("./db/db");
 const localhost = require("./security/localhost.js");
 const production = require("./security/production");
 
+const cors = require("cors");
+
+app.use(cors());
+
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/review", require("./routes/reviewRoutes.js"));
