@@ -33,7 +33,6 @@ const addUser = async (req, res) => {
       username: savedUser.username,
       email: savedUser.email,
     };
-    console.log("!!!user: ", usr);
     res.json({ message: `User created`, usr });
   } catch (err) {
     res.status(500).json({ message: err.message });

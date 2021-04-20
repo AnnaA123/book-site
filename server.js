@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/review", require("./routes/reviewRoutes.js"));
 app.use("/user", require("./routes/userRoute.js"));
-app.use("/auth", require("./routes/authRoute.js"));
+app.use("/login", require("./routes/loginRoute.js"));
 
 app.use(cors());
 

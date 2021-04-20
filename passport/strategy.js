@@ -27,5 +27,20 @@ passport.use(
     }
   })
 );
-
+/* // TODO TOKEN STUFF
+passport.use(
+  new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: "password", // CHANGE LATER
+  },
+  async (jwtPayload, done) => {
+      try {
+          
+      } catch (err) {
+          return done(null, false)
+      }
+  } 
+  )
+);
+*/
 module.exports = passport;

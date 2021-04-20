@@ -23,7 +23,7 @@ reviewSchema.query.byUserID = function (userID) {
   if (userID !== undefined) {
     return this.find({ UserID: new ObjectId(userID) });
   } else {
-    return this.find({ BookID: new RegExp("", "i") });
+    return this.find();
   }
 };
 
