@@ -2,7 +2,9 @@ const review = require("../models/reviewModel.js");
 
 const getAllReviews = async (req, res) => {
   try {
-    res.json(await review.find().byBookID(req.query.bookid));
+    res.json(
+      await review.find().byBookID(req.query.book).byUserID(req.query.user)
+    );
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
