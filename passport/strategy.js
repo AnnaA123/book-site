@@ -9,6 +9,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 //login
 passport.use(
   new Strategy(async (username, password, done) => {
+    console.log("help");
     try {
       const user = await userModel.findOne({ username });
       if (user === null) {

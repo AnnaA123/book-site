@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { getAllUsers } = require("../controllers/userController.js");
+const login = require("../passport/auth.js");
 
-router.get("/", getAllUsers);
+router.post("/", login);
 
 module.exports = router;

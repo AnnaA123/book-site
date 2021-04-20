@@ -1,9 +1,32 @@
 const jwt = require("jsonwebtoken");
-const passport = require("passport");
 const userModel = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const passport = require("passport");
 
-const login = (req, res, done) => {
-  return new Promise((resolve, reject) => {
+const login = async (req, res, done) => {
+  console.log("help");
+  try {
+    const user = await userModel.findOne({ username: req.body.username });
+    if (!user || user === null) {
+      return response.status(401).json({ error: "error 401" });
+    }
+    const val = await bcrypt.compare(req.body.password, user.password);
+    if (!val) {
+      return response.status(401).json({ error: "error 401" });
+    }
+
+    const publicUser = user.toObject();
+    delete publicUser.password;
+    const token = jwt.sign(publicUser, "test"); // TODO
+
+    console.log(`User ${user.username} logged in with token ${token}`);
+    res.status(200).send({ user, token });
+  } catch (err) {
+    done(err);
+  }
+};
+/*
+return new Promise((resolve, reject) => {
     passport.authenticate(
       "local",
       { session: false },
@@ -18,7 +41,8 @@ const login = (req, res, done) => {
               reject(err);
             }
 
-            const token = jwt.sign(user, ""); // TODO
+            const token = jwt.sign(user, "test"); // TODO
+            console.log(`User ${user.username} logged in with token ${token}`);
             resolve({ user, token });
           });
         } catch (err) {
@@ -27,7 +51,7 @@ const login = (req, res, done) => {
       }
     )(req, res);
   });
-};
+*/
 /*
 try {
     const user = await userModel.findOne({username: req.body.username});
