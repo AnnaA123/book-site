@@ -36,28 +36,6 @@ const userPermission = async (req) => {
   */
 };
 
-const userPermissionLite = async (req) => {
-  // check if the user is logged in
-  const rToken = req.headers.authorization;
-  console.log("rToken: ", rToken);
-  if (rToken === undefined) {
-    return false;
-  } else {
-    const sToken = rToken.slice(7);
-    const token = jwt.verify(sToken, process.env.TOKEN_PW);
-    console.log("--------------\nbruh ", token);
-    const thisUser = await userModel.findById(token._id);
-
-    if (thisReview.UserID.toString() === thisUser._id.toString()) {
-      console.log("-------------------\nYES CORRECT TOKEN");
-      return true;
-    } else {
-      console.log("-------------------\nNOPE");
-      return false;
-    }
-  }
-};
-
 const getAllReviews = async (req, res) => {
   try {
     res.json(
@@ -79,7 +57,6 @@ const getReview = async (req, res) => {
 const postReview = async (req, res) => {
   // first check if the user is logged in
   const rToken = req.headers.authorization;
-  console.log("rToken: ", rToken);
   if (rToken === undefined) {
     res.status(401).json({ error: "You need to be logged in." });
   } else {
@@ -103,9 +80,9 @@ const postReview = async (req, res) => {
 };
 
 const editReview = async (req, res) => {
-  const verified = userPermission(req);
+  const verified = await userPermission(req);
 
-  if (await verified) {
+  if (verified) {
     try {
       const modify = await review.updateOne(
         { _id: req.params.id },
@@ -124,9 +101,8 @@ const editReview = async (req, res) => {
 };
 
 const deleteReview = async (req, res) => {
-  const verified = userPermission(req);
-  console.log("--------------\n VERIFIED ", await (await verified).hasRights);
-  if (await verified) {
+  const verified = await userPermission(req);
+  if (verified) {
     try {
       await review.deleteOne({ _id: req.params.id });
       res.send(`review deleted`);

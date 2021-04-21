@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const login = require("../passport/auth.js");
+const login = require("../controllers/auth.js");
 
 router.post("/", login);
 
