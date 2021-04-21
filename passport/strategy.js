@@ -1,3 +1,5 @@
+// currently not in use, couldn't quite get it to work
+
 const passport = require("passport");
 const { Strategy } = require("passport-local");
 const bcrypt = require("bcrypt");
@@ -29,6 +31,7 @@ passport.use(
   })
 );
 /* // TODO TOKEN STUFF
+
 passport.use(
   new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
