@@ -1,3 +1,4 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const review = require("../models/reviewModel.js");
 const userModel = require("../models/userModel.js");
@@ -6,23 +7,25 @@ const userPermission = async (req) => {
   // check if the user has permission to perform an action
   const reviewID = req.params.id;
   const rToken = req.headers.authorization;
-  console.log("123RToken: ", rToken);
-  const test = rToken.slice(7);
-  const token = jwt.verify(test, "test"); // TODO
-  console.log("--------------\nbruh ", token);
-  const thisReview = await review.findById(reviewID);
-  const thisUser = await userModel.findById(token._id);
-
-  /*
-  if (thisReview.UserID.toString() === thisUser._id.toString()) {
-    console.log("-------------------\nYES CORRECT TOKEN");
-    return true;
-  } else {
-    console.log("-------------------\nNOPE");
+  console.log("rToken: ", rToken);
+  if (rToken === undefined) {
     return false;
-  }
-  */
+  } else {
+    const sToken = rToken.slice(7);
+    const token = jwt.verify(sToken, process.env.TOKEN_PW);
+    console.log("--------------\nbruh ", token);
+    const thisReview = await review.findById(reviewID);
+    const thisUser = await userModel.findById(token._id);
 
+    if (thisReview.UserID.toString() === thisUser._id.toString()) {
+      console.log("-------------------\nYES CORRECT TOKEN");
+      return true;
+    } else {
+      console.log("-------------------\nNOPE");
+      return false;
+    }
+  }
+  /*
   return {
     thisReview,
     token,
@@ -30,6 +33,29 @@ const userPermission = async (req) => {
     reviewID,
     hasRights: thisReview.UserID.toString() === thisUser._id.toString(),
   };
+  */
+};
+
+const userPermissionLite = async (req) => {
+  // check if the user is logged in
+  const rToken = req.headers.authorization;
+  console.log("rToken: ", rToken);
+  if (rToken === undefined) {
+    return false;
+  } else {
+    const sToken = rToken.slice(7);
+    const token = jwt.verify(sToken, process.env.TOKEN_PW);
+    console.log("--------------\nbruh ", token);
+    const thisUser = await userModel.findById(token._id);
+
+    if (thisReview.UserID.toString() === thisUser._id.toString()) {
+      console.log("-------------------\nYES CORRECT TOKEN");
+      return true;
+    } else {
+      console.log("-------------------\nNOPE");
+      return false;
+    }
+  }
 };
 
 const getAllReviews = async (req, res) => {
@@ -51,23 +77,35 @@ const getReview = async (req, res) => {
 };
 
 const postReview = async (req, res) => {
-  try {
-    const post = await review.create({
-      BookID: req.body.BookID,
-      UserID: req.body.UserID,
-      Title: req.body.Title,
-      Content: req.body.Content,
-    });
-    res.send(`review posted: ${post.Title} created with id: ${post._id}`);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  // first check if the user is logged in
+  const rToken = req.headers.authorization;
+  console.log("rToken: ", rToken);
+  if (rToken === undefined) {
+    res.status(401).json({ error: "You need to be logged in." });
+  } else {
+    const sToken = rToken.slice(7);
+    const token = jwt.verify(sToken, process.env.TOKEN_PW);
+    console.log("--------------\nbruh ", token);
+    const thisUser = await userModel.findById(token._id);
+
+    try {
+      const post = await review.create({
+        BookID: req.body.BookID,
+        UserID: thisUser._id,
+        Title: req.body.Title,
+        Content: req.body.Content,
+      });
+      res.send(`review posted: ${post.Title} created with id: ${post._id}`);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   }
 };
 
 const editReview = async (req, res) => {
   const verified = userPermission(req);
 
-  if (verified) {
+  if (await verified) {
     try {
       const modify = await review.updateOne(
         { _id: req.params.id },
@@ -86,14 +124,9 @@ const editReview = async (req, res) => {
 };
 
 const deleteReview = async (req, res) => {
-  console.log(
-    "!!!!!!!!!!!!!!!!!!!\nIS THERE A TOKEN ",
-    req.headers.authorization
-  );
-
   const verified = userPermission(req);
-
-  if (verified.hasRights) {
+  console.log("--------------\n VERIFIED ", await (await verified).hasRights);
+  if (await verified) {
     try {
       await review.deleteOne({ _id: req.params.id });
       res.send(`review deleted`);

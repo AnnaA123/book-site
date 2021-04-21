@@ -18,7 +18,7 @@ const login = async (req, res, done) => {
 
     const publicUser = user.toObject();
     delete publicUser.password;
-    const token = jwt.sign(publicUser, "test"); // TODO
+    const token = jwt.sign(publicUser, process.env.TOKEN_PW); // TODO
 
     console.log(`User ${user.username} logged in with token ${token}`);
     res.status(200).send({ user, token });
