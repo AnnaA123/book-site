@@ -48,8 +48,8 @@ const getAllReviews = async (req, res) => {
 
 const getReview = async (req, res) => {
   try {
-    console.log("-------------\nreview ", req.params);
-    res.send(await review.findById(req.params.id));
+    const r = await review.findById(req.params.id);
+    res.send(r);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

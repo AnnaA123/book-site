@@ -42,8 +42,8 @@ const getUser = async (req, res) => {
       username: thisUser.username,
       email: thisUser.email,
     };
-    console.log("-----------\nUSER: ", sUser);
-    res.json(sUser);
+    console.log("-------------------\nUSER " + JSON.stringify(sUser));
+    res.status(200).json(sUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
