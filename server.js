@@ -6,6 +6,11 @@ const db = require("./db/db");
 const localhost = require("./security/localhost.js");
 const production = require("./security/production");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+
+app.use(cors());
+
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -13,14 +18,13 @@ app.use("/review", require("./routes/reviewRoutes.js"));
 app.use("/user", require("./routes/userRoutes.js"));
 app.use("/login", require("./routes/loginRoute.js"));
 
-app.use(cors());
-
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 if (process.env.NODE_ENV === "production") {
   production(app, 3000);
 } else {
   // production(app, 3000);
-  localhost(app, 8000, 3000);
+  // localhost(app, 8000, 3000);
+  localhost(app, 8000, 8000);
 }
 /*
 db.on("connected", () => {

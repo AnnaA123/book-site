@@ -2,18 +2,16 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
 
 const login = async (req, res, done) => {
-  console.log("login start");
   try {
     const user = await userModel.findOne({ username: req.body.username });
     if (!user || user === null) {
-      return response.status(401).json({ error: "error 401" });
+      return res.status(401).json({ error: "Incorrect username" });
     }
     const val = await bcrypt.compare(req.body.password, user.password);
     if (!val) {
-      return response.status(401).json({ error: "error 401" });
+      return res.status(401).json({ error: "Incorrect password" });
     }
 
     const publicUser = user.toObject();
