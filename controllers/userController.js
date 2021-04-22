@@ -37,12 +37,13 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const thisUser = await userModel.findById(req.params.id);
-    const safeUser = {
+    const sUser = {
       _id: thisUser._id,
       username: thisUser.username,
       email: thisUser.email,
     };
-    res.send(safeUser);
+    console.log("-----------\nUSER: ", sUser);
+    res.json(sUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
