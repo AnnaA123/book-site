@@ -49,7 +49,7 @@ const getAllReviews = async (req, res) => {
 const getReview = async (req, res) => {
   try {
     const r = await review.findById(req.params.id);
-    res.send(r);
+    res.status(200).json(r);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -70,6 +70,7 @@ const postReview = async (req, res) => {
       const post = await review.create({
         BookID: req.body.BookID,
         UserID: thisUser._id,
+        BookTitle: req.body.BookTitle,
         Title: req.body.Title,
         Content: req.body.Content,
       });

@@ -5,12 +5,16 @@ const ObjectId = mongoose.Types.ObjectId;
 // BookID refers to book in Google Books API
 
 const reviewSchema = new Schema({
-  BookID: String,
+  BookID: {
+    type: String,
+    required: true,
+  },
   UserID: {
     type: ObjectId,
     ref: "User",
     required: true,
   },
+  BookTitle: String,
   Title: String,
   Content: String,
 });
