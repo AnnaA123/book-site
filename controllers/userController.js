@@ -37,6 +37,7 @@ const getUser = async (req, res) => {
       _id: thisUser._id,
       username: thisUser.username,
       email: thisUser.email,
+      description: thisUser.description,
     };
     res.status(200).json(sUser);
   } catch (err) {
@@ -51,17 +52,40 @@ const addUser = async (req, res) => {
       username: req.body.username,
       password: pw,
       email: req.body.email,
+      description: req.body.description,
     };
     let newUser = new userModel(req.user);
     const savedUser = await newUser.save();
     delete savedUser.password;
     const usr = {
       username: savedUser.username,
-      email: savedUser.email,
     };
     res.json({ message: `User created`, usr });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+const editUser = async (req, res) => {
+  const verified = await userPermission(req);
+
+  if (verified) {
+    try {
+      console.log("--------------\n", JSON.stringify(req.body));
+      await userModel.updateOne(
+        { _id: req.params.id },
+        { description: req.body.description }
+      );
+      res.status(200).json({
+        message: `Description updated`,
+      });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  } else {
+    res
+      .status(401)
+      .json({ error: "You do not have the rights to edit this review." });
   }
 };
 
@@ -84,5 +108,6 @@ module.exports = {
   getAllUsers,
   getUser,
   addUser,
+  editUser,
   deleteUser,
 };

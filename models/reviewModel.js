@@ -15,8 +15,14 @@ const reviewSchema = new Schema({
     required: true,
   },
   BookTitle: String,
-  Title: String,
-  Content: String,
+  Title: {
+    type: String,
+    required: true,
+  },
+  Content: {
+    type: String,
+    required: true,
+  },
 });
 
 reviewSchema.query.byBookID = function (bookID) {
