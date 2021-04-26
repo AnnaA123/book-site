@@ -77,9 +77,9 @@ const editReview = async (req, res) => {
         { _id: req.params.id },
         { Content: req.body.Content }
       );
-      res
-        .status(200)
-        .send(`Review ${req.body.Title} updated: ${req.body.Content}`);
+      res.status(200).json({
+        message: `Review ${req.body.Title} updated: ${req.body.Content}`,
+      });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
