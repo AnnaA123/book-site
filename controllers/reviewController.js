@@ -107,7 +107,7 @@ const deleteReview = async (req, res) => {
   if (verified) {
     try {
       await review.deleteOne({ _id: req.params.id });
-      res.send(`review deleted`);
+      res.json({ message: "Review deleted" });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
