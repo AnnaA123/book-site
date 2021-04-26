@@ -7,33 +7,20 @@ const userPermission = async (req) => {
   // check if the user has permission to perform an action
   const reviewID = req.params.id;
   const rToken = req.headers.authorization;
-  console.log("rToken: ", rToken);
   if (rToken === undefined) {
     return false;
   } else {
     const sToken = rToken.slice(7);
     const token = jwt.verify(sToken, process.env.TOKEN_PW);
-    console.log("--------------\nbruh ", token);
     const thisReview = await review.findById(reviewID);
     const thisUser = await userModel.findById(token._id);
 
     if (thisReview.UserID.toString() === thisUser._id.toString()) {
-      console.log("-------------------\nYES CORRECT TOKEN");
       return true;
     } else {
-      console.log("-------------------\nNOPE");
       return false;
     }
   }
-  /*
-  return {
-    thisReview,
-    token,
-    thisUser,
-    reviewID,
-    hasRights: thisReview.UserID.toString() === thisUser._id.toString(),
-  };
-  */
 };
 
 const getAllReviews = async (req, res) => {
@@ -63,7 +50,6 @@ const postReview = async (req, res) => {
   } else {
     const sToken = rToken.slice(7);
     const token = jwt.verify(sToken, process.env.TOKEN_PW);
-    console.log("--------------\nbruh ", token);
     const thisUser = await userModel.findById(token._id);
 
     try {
@@ -74,7 +60,7 @@ const postReview = async (req, res) => {
         Title: req.body.Title,
         Content: req.body.Content,
       });
-      res.json({ message: "Review created" });
+      res.json({ message: `Review ${post.Title} created` });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -86,12 +72,14 @@ const editReview = async (req, res) => {
 
   if (verified) {
     try {
-      const modify = await review.updateOne(
+      console.log("--------------\n", JSON.stringify(req.body));
+      await review.updateOne(
         { _id: req.params.id },
-        { Title: req.params.Title },
-        { Content: req.params.Content }
+        { Content: req.body.Content }
       );
-      res.status(200).send(`Review ${modify.Title} updated`);
+      res
+        .status(200)
+        .send(`Review ${req.body.Title} updated: ${req.body.Content}`);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

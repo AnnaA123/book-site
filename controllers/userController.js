@@ -7,20 +7,16 @@ const userModel = require("../models/userModel.js");
 const userPermission = async (req) => {
   // check if the user has permission to perform an action
   const rToken = req.headers.authorization;
-  console.log("rToken: ", rToken);
   if (rToken === undefined) {
     return false;
   } else {
     const sToken = rToken.slice(7);
     const token = jwt.verify(sToken, process.env.TOKEN_PW);
-    console.log("--------------\nbruh ", token);
     const thisUser = await userModel.findById(token._id);
 
     if (req.params.id.toString() === thisUser._id.toString()) {
-      console.log("-------------------\nYES CORRECT TOKEN");
       return true;
     } else {
-      console.log("-------------------\nNOPE");
       return false;
     }
   }
@@ -75,7 +71,7 @@ const deleteUser = async (req, res) => {
   if (verified) {
     try {
       await userModel.deleteOne({ _id: req.params.id });
-      res.send(`user deleted`);
+      res.json({ message: "User deleted" });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

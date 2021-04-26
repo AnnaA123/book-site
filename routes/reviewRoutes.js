@@ -13,7 +13,7 @@ router.post("/", postReview);
 
 router.get("/:id", getReview);
 
-router.get("/:id", editReview);
+router.put("/:id", editReview);
 
 router.delete("/:id", deleteReview);
 
