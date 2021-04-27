@@ -2,6 +2,7 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel.js");
+const reviewModel = require("../models/reviewModel.js");
 let saltRounds = 10;
 
 const userPermission = async (req) => {
@@ -93,6 +94,7 @@ const deleteUser = async (req, res) => {
 
   if (verified) {
     try {
+      await reviewModel.deleteMany({ UserID: req.params.id });
       await userModel.deleteOne({ _id: req.params.id });
       res.json({ message: "User deleted" });
     } catch (err) {

@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
 */
 
 db.on("connected", () => {
-  app.listen(3000, () => {
-    console.log("express server started port 3000");
+  app.listen(8000, () => {
+    console.log("express server started port 8000");
   });
 });

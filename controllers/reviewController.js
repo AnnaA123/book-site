@@ -1,6 +1,6 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const review = require("../models/reviewModel.js");
+const reviewModel = require("../models/reviewModel.js");
 const userModel = require("../models/userModel.js");
 
 const userPermission = async (req) => {
@@ -12,7 +12,7 @@ const userPermission = async (req) => {
   } else {
     const sToken = rToken.slice(7);
     const token = jwt.verify(sToken, process.env.TOKEN_PW);
-    const thisReview = await review.findById(reviewID);
+    const thisReview = await reviewModel.findById(reviewID);
     const thisUser = await userModel.findById(token._id);
 
     if (thisReview.UserID.toString() === thisUser._id.toString()) {
@@ -26,7 +26,7 @@ const userPermission = async (req) => {
 const getAllReviews = async (req, res) => {
   try {
     res.json(
-      await review.find().byBookID(req.query.book).byUserID(req.query.user)
+      await reviewModel.find().byBookID(req.query.book).byUserID(req.query.user)
     );
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -35,7 +35,7 @@ const getAllReviews = async (req, res) => {
 
 const getReview = async (req, res) => {
   try {
-    const r = await review.findById(req.params.id);
+    const r = await reviewModel.findById(req.params.id);
     res.status(200).json(r);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -53,7 +53,7 @@ const postReview = async (req, res) => {
     const thisUser = await userModel.findById(token._id);
 
     try {
-      const post = await review.create({
+      const post = await reviewModel.create({
         BookID: req.body.BookID,
         UserID: thisUser._id,
         BookTitle: req.body.BookTitle,
@@ -72,7 +72,7 @@ const editReview = async (req, res) => {
 
   if (verified) {
     try {
-      await review.updateOne(
+      await reviewModel.updateOne(
         { _id: req.params.id },
         { Content: req.body.Content }
       );
@@ -93,7 +93,7 @@ const deleteReview = async (req, res) => {
   const verified = await userPermission(req);
   if (verified) {
     try {
-      await review.deleteOne({ _id: req.params.id });
+      await reviewModel.deleteOne({ _id: req.params.id });
       res.json({ message: "Review deleted" });
     } catch (err) {
       res.status(500).json({ message: err.message });
