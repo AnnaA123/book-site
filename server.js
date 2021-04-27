@@ -3,8 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const db = require("./db/db");
-const localhost = require("./security/localhost.js");
-const production = require("./security/production");
+//const localhost = require("./security/localhost.js");
+//const production = require("./security/production");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
