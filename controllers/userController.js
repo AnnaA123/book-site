@@ -1,8 +1,8 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const saltRounds = process.env.SALTROUNDS;
 const userModel = require("../models/userModel.js");
+let saltRounds = 10;
 
 const userPermission = async (req) => {
   // check if the user has permission to perform an action
