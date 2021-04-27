@@ -1,7 +1,7 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const saltRounds = 10;
+const saltRounds = process.env.SALTROUNDS;
 const userModel = require("../models/userModel.js");
 
 const userPermission = async (req) => {
@@ -71,7 +71,6 @@ const editUser = async (req, res) => {
 
   if (verified) {
     try {
-      console.log("--------------\n", JSON.stringify(req.body));
       await userModel.updateOne(
         { _id: req.params.id },
         { description: req.body.description }

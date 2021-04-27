@@ -72,7 +72,6 @@ const editReview = async (req, res) => {
 
   if (verified) {
     try {
-      console.log("--------------\n", JSON.stringify(req.body));
       await review.updateOne(
         { _id: req.params.id },
         { Content: req.body.Content }

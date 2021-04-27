@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // Currently connects to chargemap db
 (async () => {
   try {
-    await mongoose.connect(process.env.DBURL, {
+    await mongoose.connect(process.env.BOOKDB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
