@@ -1,3 +1,4 @@
+/*
 const https = require("https");
 const http = require("http");
 const fs = require("fs");
@@ -18,3 +19,4 @@ const localhost = (app, httpsPort, httpPort) => {
   //http.createServer(httpsRedirect).listen(httpPort);
 };
 module.exports = localhost;
+*/
