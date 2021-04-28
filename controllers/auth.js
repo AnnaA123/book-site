@@ -1,3 +1,4 @@
+/*
 require("dotenv").config();
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
@@ -49,3 +50,4 @@ const userPermission = (req, res) => {
 };
 
 export { login, userPermission };
+*/

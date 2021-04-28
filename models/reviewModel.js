@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -37,4 +37,4 @@ reviewSchema.query.byUserID = function (userID) {
   }
 };
 
-module.exports = mongoose.model("Review", reviewSchema);
+export default mongoose.model("Review", reviewSchema);

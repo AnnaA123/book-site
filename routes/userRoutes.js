@@ -1,3 +1,4 @@
+/*
 const router = require("express").Router();
 const {
   getAllUsers,
@@ -18,3 +19,4 @@ router.put("/:id", editUser);
 router.delete("/:id", deleteUser);
 
 module.exports = router;
+*/

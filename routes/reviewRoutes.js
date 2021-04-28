@@ -1,3 +1,4 @@
+/*
 const router = require("express").Router();
 const {
   getAllReviews,
@@ -18,3 +19,4 @@ router.put("/:id", editReview);
 router.delete("/:id", deleteReview);
 
 module.exports = router;
+*/
