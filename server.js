@@ -4,7 +4,7 @@ import resolvers from "./resolvers/index.js";
 import express from "express";
 import dotenv from "dotenv";
 import connectMongo from "./db/db.js";
-// import { checkAuth } from "./passport/authenticate.js";
+// import { checkAuth } from "./passport/auth.js";
 // import localhost from "./security/localhost.js";
 // import production from "./security/production.js";
 // import helmet from "helmet";
