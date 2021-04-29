@@ -1,5 +1,5 @@
-/*
-require("dotenv").config();
+
+//require("dotenv").config();
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
@@ -26,7 +26,7 @@ const login = async (req, res, done) => {
   }
 };
 
-const userPermission = (req, res) => {
+const checkAuth = (req, res) => {
   // check if the user has permission to perform an action
   return new Promise((resolve, reject) => {
     const reviewID = req.params.id;
@@ -49,5 +49,5 @@ const userPermission = (req, res) => {
   
 };
 
-export { login, userPermission };
-*/
+export { login, checkAuth };
+

@@ -1,5 +1,4 @@
 "use strict";
-require("dotenv").config();
 import jwt from "jsonwebtoken";
 import passport from "./strategy.js";
 
