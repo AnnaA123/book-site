@@ -2,10 +2,13 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import bcrypt from "bcrypt";
-// import userModel from "../models/userModel.js";
+import userModel from "../models/userModel.js";
 import passportJWT from "passport-jwt";
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // local strategy for username password login
 passport.use(
@@ -15,46 +18,42 @@ passport.use(
       const user = await userModel.findOne({ username });
       console.log("Local strategy", user);
       if (user === null) {
-        return done(null, false, { message: "Incorrect email." });
+        return done(null, false, { message: "Incorrect username." });
       }
       const validate = await bcrypt.compare(password, user.password);
       if (!validate) {
         return done(null, false, { message: "Incorrect password." });
       }
 
-      const strippedUser = user.toObject();
-      delete strippedUser.password;
-      console.log("deleted pwd", strippedUser);
+      const sUser = user.toObject();
+      delete sUser.password;
+      console.log("deleted pwd", sUser);
 
-      return done(null, strippedUser, { message: "Logged In Successfully" });
+      return done(null, sUser, { message: "Logged in" });
     } catch (err) {
-      return done(err);
+      return done({ message: err });
     }
   })
 );
 
-// TODO: JWT strategy for handling bearer token
-/*
 passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: "asd123",
+      secretOrKey: process.env.TOKEN_PW,
     },
     async (jwtPayload, done) => {
       console.log("payload", jwtPayload);
-      //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
       try {
-        /*
+        //find user in db
         const user = await userModel.findById(jwtPayload._id, "-password -__v");
         console.log("pl user", user);
-        */
 
-// hardcoded user
-/*
+        // hardcoded user
+        /*
         let user = null;
         if (jwtPayload.username === "foo") user = { id: 1, username: "foo" };
-
+*/
         if (user !== null) {
           return done(null, user);
         } else {
@@ -66,6 +65,5 @@ passport.use(
     }
   )
 );
-*/
 
 export default passport;

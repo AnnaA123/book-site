@@ -2,6 +2,10 @@
 import jwt from "jsonwebtoken";
 import passport from "./strategy.js";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const login = (req, res) => {
   return new Promise((resolve, reject) => {
     console.log("rq", req.body);
@@ -11,14 +15,14 @@ const login = (req, res) => {
       async (err, user, info) => {
         try {
           if (err || !user) {
-            reject(info.message);
+            reject(err);
           }
           req.login(user, { session: false }, async (err) => {
             if (err) {
               reject(err);
             }
 
-            const token = jwt.sign(user, process.env.TOKEN_PW);
+            const token = jwt.sign(user, process.env.TOKEN_PW); //process.env.TOKEN_PW
             resolve({ user, token });
           });
         } catch (e) {
