@@ -49,11 +49,6 @@ passport.use(
         const user = await userModel.findById(jwtPayload._id, "-password -__v");
         console.log("pl user", user);
 
-        // hardcoded user
-        /*
-        let user = null;
-        if (jwtPayload.username === "foo") user = { id: 1, username: "foo" };
-*/
         if (user !== null) {
           return done(null, user);
         } else {

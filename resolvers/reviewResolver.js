@@ -1,4 +1,5 @@
 import Review from "../models/reviewModel.js";
+import { AuthenticationError } from "apollo-server-express";
 
 export default {
   Query: {
@@ -11,14 +12,20 @@ export default {
   },
 
   Mutation: {
-    addReview: async (parent, args) => {
+    addReview: async (parent, args, { user }) => {
+      if (!user) {
+        console.log("is this working?");
+        throw new AuthenticationError("You need to be logged in.");
+      }
+
       let newReview = new Review({
         BookID: args.BookID,
         BookTitle: args.BookTitle,
-        UserID: args.UserID,
+        UserID: user._id,
         Title: args.Title,
         Content: args.Content,
       });
+      console.log("bruh ", newReview.UserID);
       return newReview.save();
     },
 

@@ -14,8 +14,9 @@ const login = (req, res) => {
       { session: false },
       async (err, user, info) => {
         try {
+          console.log(info);
           if (err || !user) {
-            reject(err);
+            reject(info.message);
           }
           req.login(user, { session: false }, async (err) => {
             if (err) {
