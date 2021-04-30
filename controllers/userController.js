@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel.js");
 const reviewModel = require("../models/reviewModel.js");
-let saltRounds = 10;
+let saltRounds = 12;
 
 const userPermission = async (req) => {
   // check if the user has permission to perform an action
