@@ -47,7 +47,7 @@ passport.use(
       try {
         //find user in db
         const user = await userModel.findById(jwtPayload._id, "-password -__v");
-        console.log("pl user", user);
+        console.log("TOKEN TEST", user);
 
         if (user !== null) {
           return done(null, user);

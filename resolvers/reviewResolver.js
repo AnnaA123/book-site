@@ -14,7 +14,6 @@ export default {
   Mutation: {
     addReview: async (parent, args, { user }) => {
       if (!user) {
-        console.log("is this working?");
         throw new AuthenticationError("You need to be logged in.");
       }
 
@@ -29,7 +28,12 @@ export default {
       return newReview.save();
     },
 
-    modifyReview: async (parent, args) => {
+    modifyReview: async (parent, args, { user }) => {
+      if (!user) {
+        throw new AuthenticationError(
+          "You are not authorized to edit this review."
+        );
+      }
       let editedReview = {
         Title: args.Title,
         Content: args.Content,
@@ -39,7 +43,12 @@ export default {
       });
     },
 
-    deleteReview: async (parent, args) => {
+    deleteReview: async (parent, args, { user }) => {
+      if (!user) {
+        throw new AuthenticationError(
+          "You are not authorized to delete this review."
+        );
+      }
       const result = await Review.findByIdAndDelete(args.id);
       return result;
     },
