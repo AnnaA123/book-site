@@ -12,4 +12,21 @@ export default gql`
     description: String
     token: String
   }
+
+  extend type Mutation {
+    addUser(
+      username: String!
+      email: String!
+      description: String!
+    ): User
+
+    modifyUser(
+      id: ID!
+      username: String
+      email: String
+      description: String
+    ) User
+
+    deleteUser(id: ID!): User
+  }
 `;
