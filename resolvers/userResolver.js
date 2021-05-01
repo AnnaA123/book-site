@@ -1,8 +1,15 @@
 import { AuthenticationError } from "apollo-server-express";
 import { login } from "../passport/auth.js";
 import User from "../models/userModel.js";
+import pkg from "bcrypt";
+const { bcrypt } = pkg;
 
 export default {
+  Review: {
+    UserID: (parent, args) => {
+      return User.findById(parent.UserID);
+    },
+  },
   Query: {
     login: async (parent, args, { req, res }) => {
       req.body = args;
@@ -24,7 +31,17 @@ export default {
 
   Mutation: {
     addUser: async (parent, args) => {
-      // TODO
+      const pw = await bcrypt.hash(args.password, 12);
+      let usr = {
+        username: args.username,
+        password: pw,
+        email: args.email,
+        description: args.description,
+      };
+      const newUser = new User(usr);
+      const sUser = await newUser.save();
+      delete sUser.password;
+      return sUser;
     },
 
     modifyReview: async (parent, args, { user }) => {
@@ -36,12 +53,12 @@ export default {
         email: args.email,
         description: args.description,
       };
-      return await User.findByIdAndUpdate(args.id, editedReview, {
+      return await User.findByIdAndUpdate(args.id, editedUser, {
         new: true,
       });
     },
 
-    deleteReview: async (parent, args, { user }) => {
+    deleteUser: async (parent, args, { user }) => {
       if (!user) {
         throw new AuthenticationError(
           "You are not authorized to delete this user."

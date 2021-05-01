@@ -7,6 +7,7 @@ export default {
       return Review.find();
     },
     review: (parent, args) => {
+      //.populate({ path: "UserID", });
       return Review.findById(args.id);
     },
   },
