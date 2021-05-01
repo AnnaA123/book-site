@@ -1,8 +1,8 @@
 import { AuthenticationError } from "apollo-server-express";
 import { login } from "../passport/auth.js";
 import User from "../models/userModel.js";
-import pkg from "bcrypt";
-const { bcrypt } = pkg;
+import bcrypt from "bcrypt";
+const saltrounds = 12;
 
 export default {
   Review: {
@@ -30,8 +30,8 @@ export default {
   },
 
   Mutation: {
-    addUser: async (parent, args) => {
-      const pw = await bcrypt.hash(args.password, 12);
+    signup: async (parent, args) => {
+      const pw = await bcrypt.hash(args.password, saltrounds);
       let usr = {
         username: args.username,
         password: pw,
