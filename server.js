@@ -24,7 +24,6 @@ dotenv.config();
       context: async ({ req, res }) => {
         if (req) {
           const user = await checkAuth(req, res);
-          //const user = { username: "foo", password: "bar" };
           return {
             req,
             res,

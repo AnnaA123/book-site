@@ -13,10 +13,8 @@ dotenv.config();
 // local strategy for username password login
 passport.use(
   new Strategy(async (username, password, done) => {
-    console.log(username, password);
     try {
       const user = await userModel.findOne({ username });
-      console.log("Local strategy", user);
       if (user === null) {
         return done(null, false, { message: "Incorrect username." });
       }
@@ -27,7 +25,6 @@ passport.use(
 
       const sUser = user.toObject();
       delete sUser.password;
-      console.log("deleted pwd", sUser);
 
       return done(null, sUser, { message: "Logged in" });
     } catch (err) {

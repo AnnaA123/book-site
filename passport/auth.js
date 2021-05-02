@@ -8,13 +8,11 @@ dotenv.config();
 
 const login = (req, res) => {
   return new Promise((resolve, reject) => {
-    console.log("rq", req.body);
     passport.authenticate(
       "local",
       { session: false },
       async (err, user, info) => {
         try {
-          console.log(info);
           if (err || !user) {
             reject(info.message);
           }
@@ -23,7 +21,7 @@ const login = (req, res) => {
               reject(err);
             }
 
-            const token = jwt.sign(user, process.env.TOKEN_PW); //process.env.TOKEN_PW
+            const token = jwt.sign(user, process.env.TOKEN_PW);
             resolve({ user, token });
           });
         } catch (e) {
