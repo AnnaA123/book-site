@@ -43,11 +43,9 @@ passport.use(
       secretOrKey: process.env.TOKEN_PW,
     },
     async (jwtPayload, done) => {
-      console.log("payload", jwtPayload);
       try {
         //find user in db
         const user = await userModel.findById(jwtPayload._id, "-password -__v");
-        console.log("TOKEN TEST", user);
 
         if (user !== null) {
           return done(null, user);

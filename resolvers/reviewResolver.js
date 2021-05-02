@@ -31,7 +31,6 @@ export default {
         Title: args.Title,
         Content: args.Content,
       });
-      console.log("bruh ", newReview.UserID);
       return newReview.save();
     },
 
