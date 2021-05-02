@@ -49,9 +49,9 @@ dotenv.config();
     }
 */
 
-    app.listen({ port: 3000 }, () =>
+    app.listen({ port: 8000 }, () =>
       console.log(
-        `🚀 Server ready at http://localhost:3000${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:8000${server.graphqlPath}`
       )
     );
 

@@ -4,6 +4,8 @@ export default gql`
   extend type Query {
     reviews: [Review]
     review(id: ID): Review
+    reviewsByBook(BookID: String): [Review]
+    reviewsByUser(UserID: String): [Review]
   }
 
   type Review {

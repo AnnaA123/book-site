@@ -10,6 +10,12 @@ export default {
       //.populate({ path: "UserID", });
       return Review.findById(args.id);
     },
+    reviewsByBook: async (parent, args) => {
+      return Review.find({ BookID: args.BookID });
+    },
+    reviewsByUser: async (parent, args) => {
+      return Review.find({ UserID: args.UserID });
+    },
   },
 
   Mutation: {
