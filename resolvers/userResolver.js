@@ -16,7 +16,7 @@ export default {
       try {
         const loginRes = await login(req, res);
         return {
-          id: loginRes.user.id,
+          id: loginRes.user._id,
           username: loginRes.user.username,
           token: loginRes.token,
         };
@@ -44,7 +44,7 @@ export default {
       return sUser;
     },
 
-    modifyReview: async (parent, args, { user }) => {
+    modifyUser: async (parent, args, { user }) => {
       if (!user) {
         throw new AuthenticationError("No authorization.");
       }
