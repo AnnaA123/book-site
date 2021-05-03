@@ -8,6 +8,7 @@ import { checkAuth } from "./passport/auth.js";
 import helmet from "helmet";
 import cors from "cors";
 
+app.use(cors());
 app.use(
   `/graphql`,
   graphqlHTTP({
