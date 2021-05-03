@@ -1,3 +1,4 @@
+/*
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const reviewModel = require("../models/reviewModel.js");
@@ -112,3 +113,4 @@ module.exports = {
   editReview,
   deleteReview,
 };
+*/

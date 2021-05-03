@@ -1,16 +1,17 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-// Currently connects to chargemap db
-(async () => {
+const connectMongo = async () => {
   try {
-    await mongoose.connect(process.env.BOOKDB, {
+    const connection = await mongoose.connect(process.env.BOOKDB, {
       useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
       useUnifiedTopology: true,
     });
-    console.log("DB connected successfully");
-  } catch (err) {
-    console.error("Connection to db failed", err);
+    return connection;
+  } catch (e) {
+    console.log("Connection to db failed: " + e);
   }
-})();
+};
 
-module.exports = mongoose.connection;
+export default connectMongo;

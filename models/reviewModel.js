@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -24,7 +24,7 @@ const reviewSchema = new Schema({
     required: true,
   },
 });
-
+/*
 reviewSchema.query.byBookID = function (bookID) {
   return this.find({ BookID: new RegExp(bookID, "i") });
 };
@@ -36,5 +36,5 @@ reviewSchema.query.byUserID = function (userID) {
     return this.find();
   }
 };
-
-module.exports = mongoose.model("Review", reviewSchema);
+*/
+export default mongoose.model("Review", reviewSchema);
