@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 import connectMongo from "./db/db.js";
 import { checkAuth } from "./passport/auth.js";
 import helmet from "helmet";
+import cors from "cors";
+
+app.use(cors());
 
 dotenv.config();
 
