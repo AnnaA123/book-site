@@ -23,6 +23,7 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  Rating: String,
 });
 /*
 reviewSchema.query.byBookID = function (bookID) {

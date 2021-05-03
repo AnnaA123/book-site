@@ -29,6 +29,7 @@ export default {
         UserID: user._id,
         Title: args.Title,
         Content: args.Content,
+        Rating: args.Rating,
       });
       return newReview.save();
     },
@@ -42,6 +43,7 @@ export default {
       let editedReview = {
         Title: args.Title,
         Content: args.Content,
+        Rating: args.Rating,
       };
       return await Review.findByIdAndUpdate(args.id, editedReview, {
         new: true,

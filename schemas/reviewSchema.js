@@ -14,6 +14,7 @@ export default gql`
     BookTitle: String
     Title: String
     Content: String
+    Rating: String
     UserID: User
   }
 
@@ -23,6 +24,7 @@ export default gql`
       BookTitle: String!
       Title: String!
       Content: String!
+      Rating: String
       UserID: ID!
     ): Review
 
@@ -32,6 +34,7 @@ export default gql`
       BookTitle: String
       Title: String
       Content: String
+      Rating: String
       UserID: ID
     ): Review
 

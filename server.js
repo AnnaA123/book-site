@@ -34,12 +34,12 @@ dotenv.config();
 
     const app = express();
     app.use(cors());
-    app.use(helmet());
+    //app.use(helmet());
     server.applyMiddleware({ app });
 
-    app.listen({ port: 3000 }, () =>
+    app.listen({ port: 4000 }, () =>
       console.log(
-        `🚀 Server ready at http://localhost:3000${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:4000${server.graphqlPath}`
       )
     );
   } catch (e) {
