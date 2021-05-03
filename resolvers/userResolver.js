@@ -60,7 +60,6 @@ export default {
     },
 
     deleteUser: async (parent, args, { user }) => {
-      console.log("user ", user);
       if (!user) {
         throw new AuthenticationError(
           "You are not authorized to delete this user."
