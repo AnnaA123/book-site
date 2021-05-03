@@ -8,16 +8,6 @@ import { checkAuth } from "./passport/auth.js";
 import helmet from "helmet";
 import cors from "cors";
 
-app.use(cors());
-app.use(
-  `/graphql`,
-  graphqlHTTP({
-    schema: schema,
-    rootValue: rootResolver,
-    graphiql: true,
-  })
-);
-
 dotenv.config();
 
 (async () => {
@@ -44,6 +34,7 @@ dotenv.config();
     });
 
     const app = express();
+    app.use(cors());
     app.use(helmet());
     server.applyMiddleware({ app });
 
