@@ -19,6 +19,7 @@ dotenv.config();
     const server = new ApolloServer({
       typeDefs: schemas,
       resolvers,
+      playground: false,
       context: async ({ req, res }) => {
         if (req) {
           const user = await checkAuth(req, res);
@@ -35,9 +36,9 @@ dotenv.config();
     // app.use(helmet());
     server.applyMiddleware({ app });
 
-    app.listen({ port: 8000 }, () =>
+    app.listen({ port: 3000 }, () =>
       console.log(
-        `🚀 Server ready at http://localhost:8000${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:3000${server.graphqlPath}`
       )
     );
   } catch (e) {
