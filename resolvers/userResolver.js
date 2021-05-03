@@ -1,6 +1,7 @@
 import { AuthenticationError } from "apollo-server-express";
 import { login } from "../passport/auth.js";
 import User from "../models/userModel.js";
+import Review from "../models/reviewModel.js";
 import bcrypt from "bcrypt";
 const saltrounds = 12;
 
@@ -59,6 +60,7 @@ export default {
     },
 
     deleteUser: async (parent, args, { user }) => {
+      console.log("user ", user);
       if (!user) {
         throw new AuthenticationError(
           "You are not authorized to delete this user."
