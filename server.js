@@ -5,8 +5,6 @@ import express from "express";
 import dotenv from "dotenv";
 import connectMongo from "./db/db.js";
 import { checkAuth } from "./passport/auth.js";
-// import localhost from "./security/localhost.js";
-// import production from "./security/production.js";
 // import helmet from "helmet";
 
 dotenv.config();
@@ -34,36 +32,14 @@ dotenv.config();
     });
 
     const app = express();
-
     // app.use(helmet());
-
     server.applyMiddleware({ app });
-    /*
-    process.env.NODE_ENV = process.env.NODE_ENV || "production";
-    if (process.env.NODE_ENV === "production") {
-      production(app, 3000);
-    } else {
-      production(app, 3000);
-      // localhost(app, 8000, 3000);
-    }
-*/
 
     app.listen({ port: 8000 }, () =>
       console.log(
         `🚀 Server ready at http://localhost:8000${server.graphqlPath}`
       )
     );
-
-    /*
-    http
-      .createServer((req, res) => {
-        res.writeHead(301, { Location: "https://localhost:8000" + req.url });
-        res.end();
-      })
-      .listen(3000);
-/*
-    https.createServer(options, app).listen(8000);
-    */
   } catch (e) {
     console.log("server error: " + e.message);
   }
