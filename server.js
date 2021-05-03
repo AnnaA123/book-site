@@ -5,7 +5,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectMongo from "./db/db.js";
 import { checkAuth } from "./passport/auth.js";
-// import helmet from "helmet";
+import helmet from "helmet";
 
 dotenv.config();
 
@@ -33,7 +33,7 @@ dotenv.config();
     });
 
     const app = express();
-    // app.use(helmet());
+    app.use(helmet());
     server.applyMiddleware({ app });
 
     app.listen({ port: 3000 }, () =>
