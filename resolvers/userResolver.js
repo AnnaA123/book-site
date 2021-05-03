@@ -2,7 +2,10 @@ import { AuthenticationError } from "apollo-server-express";
 import { login } from "../passport/auth.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
-const saltrounds = 12;
+
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default {
   Review: {
@@ -31,7 +34,7 @@ export default {
 
   Mutation: {
     signup: async (parent, args) => {
-      const pw = await bcrypt.hash(args.password, saltrounds);
+      const pw = await bcrypt.hash(args.password, process.env.SALTROUNDS);
       let usr = {
         username: args.username,
         password: pw,

@@ -1,4 +1,4 @@
-
+/*
 //require("dotenv").config();
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
@@ -51,3 +51,4 @@ const checkAuth = (req, res) => {
 
 export { login, checkAuth };
 
+*/
