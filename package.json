@@ -5,13 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server"
+    "start": "NODE_ENV=production node server"
   },
   "type": "module",
   "author": "Anna Alava",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.23.0",
+    "apollo-server-express": "^2.24.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
