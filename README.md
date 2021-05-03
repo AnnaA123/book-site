@@ -4,7 +4,7 @@ Link to website (not always available): https://users.metropolia.fi/~annaalav/ss
 
 Frontend repository: https://github.com/AnnaA123/book-front
 
-===
+---
 
 ## npm packages
 
@@ -21,6 +21,6 @@ Frontend repository: https://github.com/AnnaA123/book-front
 - bcrypt
 - cors
 
-===
+---
 
 Note: controllers and routes were a part of the original non-Graphql version, which can be found in the ["original" branch](../blob/main/original)
