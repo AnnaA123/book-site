@@ -20,7 +20,7 @@ dotenv.config();
     const server = new ApolloServer({
       typeDefs: schemas,
       resolvers,
-      playground: false,
+      //playground: false,
       context: async ({ req, res }) => {
         if (req) {
           const user = await checkAuth(req, res);
@@ -35,7 +35,7 @@ dotenv.config();
 
     const app = express();
     app.use(cors());
-    app.use(helmet());
+    //app.use(helmet());
     server.applyMiddleware({ app });
 
     app.listen({ port: 3000 }, () =>
