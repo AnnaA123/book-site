@@ -7,11 +7,17 @@ import connectMongo from "./db/db.js";
 import { checkAuth } from "./passport/auth.js";
 import helmet from "helmet";
 import cors from "cors";
+import GraphiQL from "graphiql";
 
 dotenv.config();
 
 (async () => {
   try {
+    /*
+    const fetcher = createGraphiQLFetcher({
+      url: window.location.origin + "/graphql",
+    });
+*/
     const conn = await connectMongo();
     if (conn) {
       console.log("Connected succesfully.");
@@ -21,6 +27,7 @@ dotenv.config();
       typeDefs: schemas,
       resolvers,
       //playground: false,
+      graphiql: true,
       context: async ({ req, res }) => {
         if (req) {
           const user = await checkAuth(req, res);
