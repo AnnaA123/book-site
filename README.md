@@ -196,4 +196,4 @@ mutation {
 
 ---
 
-Note: controllers and routes were a part of the original non-Graphql version, which can be found in the ["original" branch](../blob/original)
+Note: controllers and routes were a part of the original non-Graphql version, which can be found in the ["original" branch](../tree/original)
