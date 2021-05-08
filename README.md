@@ -1,6 +1,6 @@
 # book-site
 
-Updated README.md on tuesday 4.5 and thursday 8.5 (nothing else updated in backend)
+Updated README.md on tuesday 4.5 and thursday 8.5 (nothing else updated in backend, server.js updated because of prt change for testing)
 
 Link to website (not always available): https://users.metropolia.fi/~annaalav/sssf/bookside/#/
 
