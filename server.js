@@ -39,7 +39,7 @@ dotenv.config();
 
     app.listen({ port: 4000 }, () =>
       console.log(
-        `🚀 Server ready at http://localhost:3000${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:4000${server.graphqlPath}`
       )
     );
   } catch (e) {
