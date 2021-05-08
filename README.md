@@ -1,5 +1,7 @@
 # book-site
 
+Updated README.md on tuesday 4.5 and thursday 8.5 (nothing else updated in backend)
+
 Link to website (not always available): https://users.metropolia.fi/~annaalav/sssf/bookside/#/
 
 Frontend repository: https://github.com/AnnaA123/book-front
@@ -79,6 +81,24 @@ mutation {
 ---
 
 ## Review
+
+Get all reviews
+```
+{
+    reviews{
+        id, 
+        Title, 
+        Content,
+        Rating,
+        BookTitle,
+        BookID,
+        UserID {
+            id
+            username
+        }
+    }
+}
+```
 
 Get one review
 ```
